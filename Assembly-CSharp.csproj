@@ -63,6 +63,10 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Player_Attack.cs" />
     <Compile Include="Assets\Scripts\Player_Movement.cs" />
+    <Compile Include="Assets\GDD - Quinnipiac\Pixel Art Character Package\Scripts\Grid.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\GDD - Quinnipiac\Pixel Art Character Package\Readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
