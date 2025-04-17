@@ -28,7 +28,7 @@ public class Player_Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W) && body.linearVelocity.y > 0)
         {
-            body.linearVelocity = new Vector2(body.linearVelocity.x, jump);
+            //body.linearVelocity = new Vector2(body.linearVelocity.x, jump);
         }
 
         if (Input.GetKey(KeyCode.W) && Grounded())
