@@ -3,8 +3,9 @@ using UnityEngine;
 public class Player_Movement : MonoBehaviour
 {
     //THIS CODE IS UPDATED
-    [Header("Horizontal Movement Settings")]
+    
     private Rigidbody2D body;
+    [Header("Horizontal Movement Settings")]
     [SerializeField] private float speed;
     [SerializeField] private float jump;
 
@@ -13,6 +14,10 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] private float groundCheckY = 0.2f;
     [SerializeField] private float groundCheckX = 0.5f;
     [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private LayerMask whatIsWall;
+
+    private BoxCollider2D boxCollider;
+    private float wallJumpCooldown;
 
     private void Awake() {
         body = GetComponent<Rigidbody2D>();
@@ -21,6 +26,7 @@ public class Player_Movement : MonoBehaviour
     private void Update() {
         body.linearVelocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.linearVelocity.y);
 
+        if(wallJumpCooldown < 0.2f)
         Jump();
     }
     
@@ -28,7 +34,7 @@ public class Player_Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W) && body.linearVelocity.y > 0)
         {
-            body.linearVelocity = new Vector2(body.linearVelocity.x, jump);
+            //body.linearVelocity = new Vector2(body.linearVelocity.x, jump);
         }
 
         if (Input.GetKey(KeyCode.W) && Grounded())
@@ -49,5 +55,10 @@ public class Player_Movement : MonoBehaviour
         {
             return false;
         }
+    }
+    public bool onWall()
+    {
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.1f, whatIsWall);
+        return raycastHit.collider != null;
     }
 }
