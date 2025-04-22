@@ -2,12 +2,19 @@ using UnityEngine;
 
 public class Player_Movement : MonoBehaviour
 {
-    //THIS CODE IS UPDATED
-    
     private Rigidbody2D body;
+    private BoxCollider2D boxCollider;
+    private float wallJumpCooldown;
+    private float jumpTime;
+    private int availableJumps;
+    private bool isJumping;
+
     [Header("Horizontal Movement Settings")]
     [SerializeField] private float speed;
     [SerializeField] private float jump;
+    [SerializeField] private float jumpStartTime;
+    [SerializeField] private int maxJumps;
+
 
     [Header("Ground Check Settings")]
     [SerializeField] private Transform groundCheckPoint;
@@ -16,8 +23,6 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private LayerMask whatIsWall;
 
-    private BoxCollider2D boxCollider;
-    private float wallJumpCooldown;
 
     private void Awake() {
         body = GetComponent<Rigidbody2D>();
@@ -32,14 +37,30 @@ public class Player_Movement : MonoBehaviour
     
     void Jump()
     {
-        if (Input.GetKey(KeyCode.W) && body.linearVelocity.y > 0)
-        {
-            //body.linearVelocity = new Vector2(body.linearVelocity.x, jump);
-        }
-
         if (Input.GetKey(KeyCode.W) && Grounded())
         {
             body.linearVelocity = new Vector2(body.linearVelocity.x, jump);
+
+            jumpTime = jumpStartTime;
+            isJumping = true;
+        }
+
+        if (Input.GetKey(KeyCode.W) && isJumping == true)
+        {
+            if (jumpTime > 0)
+            {
+                body.linearVelocity = new Vector2(body.linearVelocity.x, jump);
+                jumpTime -= Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+        }
+
+        if(Input.GetKeyUp(KeyCode.W))
+        {
+            isJumping = false;
         }
     }
 
@@ -61,4 +82,14 @@ public class Player_Movement : MonoBehaviour
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.1f, whatIsWall);
         return raycastHit.collider != null;
     }
+
+
+    //OLD TBD CODE
+
+    /*
+    if (Input.GetKey(KeyCode.W) && body.linearVelocity.y > 0)
+        {
+            body.linearVelocity = new Vector2(body.linearVelocity.x, jump);
+        }
+        */
 }
