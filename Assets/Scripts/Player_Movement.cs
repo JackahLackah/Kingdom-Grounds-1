@@ -23,16 +23,22 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private LayerMask whatIsWall;
 
+    Animator animator;
 
     private void Awake() {
         body = GetComponent<Rigidbody2D>();
+
+        animator = GetComponent<Animator>();
     }
 
     private void Update() {
-        body.linearVelocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.linearVelocity.y);
+        float horizontalvelocity = Input.GetAxis("Horizontal") * speed;
+        body.linearVelocity = new Vector2(horizontalvelocity, body.linearVelocity.y);
 
         if(wallJumpCooldown < 0.2f)
         Jump();
+
+        animator.SetFloat("Speed", horizontalvelocity);
     }
     
     void Jump()
