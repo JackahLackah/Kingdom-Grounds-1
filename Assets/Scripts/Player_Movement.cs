@@ -35,7 +35,7 @@ public class Player_Movement : MonoBehaviour
         float horizontalvelocity = Input.GetAxis("Horizontal") * speed;
         body.linearVelocity = new Vector2(horizontalvelocity, body.linearVelocity.y);
 
-        if(wallJumpCooldown < 0.2f)
+        //if(wallJumpCooldown < 0.2f)
         Jump();
 
         animator.SetFloat("Speed", horizontalvelocity);
@@ -67,6 +67,12 @@ public class Player_Movement : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.W))
         {
             isJumping = false;
+        }
+
+        //HIGHER GRAVITY WHEN FALLING
+        if(body.linearVelocity.y < 0)
+        {
+            
         }
     }
 
