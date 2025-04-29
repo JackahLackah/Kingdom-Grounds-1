@@ -86,17 +86,18 @@ public class PlayerNewMovement : MonoBehaviour
 
 		#region INPUT HANDLER
 		_moveInput.x = Input.GetAxisRaw("Horizontal");
+		//print("UPDATE METHOD X INPUT: " + _moveInput.x);
 		_moveInput.y = Input.GetAxisRaw("Vertical");
 
 		if (_moveInput.x != 0)
 			CheckDirectionToFace(_moveInput.x > 0);
 
-		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.J))
+		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
 		{
 			OnJumpInput();
 		}
 
-		if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.C) || Input.GetKeyUp(KeyCode.J))
+		if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.W))
 		{
 			OnJumpUpInput();
 		}
@@ -254,6 +255,7 @@ public class PlayerNewMovement : MonoBehaviour
 	#region RUN METHODS
 	private void Run(float lerpAmount)
 	{
+		//print("RUN METHOD X INPUT: " + _moveInput.x);
 		//Calculate the direction we want to move in and our desired velocity
 		float targetSpeed = _moveInput.x * Data.runMaxSpeed;
 		//We can reduce are control using Lerp() this smooths changes to are direction and speed
@@ -269,6 +271,8 @@ public class PlayerNewMovement : MonoBehaviour
 		else
 			accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? Data.runAccelAmount * Data.accelInAir : Data.runDeccelAmount * Data.deccelInAir;
 		#endregion
+
+		//print("ACCEL RATE AFTER INITIAL ASSIGNMENT: " + accelRate);
 
 		#region Add Bonus Jump Apex Acceleration
 		//Increase are acceleration and maxSpeed when at the apex of their jump, makes the jump feel a bit more bouncy, responsive and natural
@@ -294,7 +298,9 @@ public class PlayerNewMovement : MonoBehaviour
 		//Calculate force along x-axis to apply to thr player
 
 		float movement = speedDif * accelRate;
-
+		//print("SPEED DIF: " + speedDif);
+		//print("ACCEL RATE: " + accelRate);
+		//print("MOVEMENT: " + movement);
 		//Convert this to a vector and apply to rigidbody
 		RB.AddForce(movement * Vector2.right, ForceMode2D.Force);
 
