@@ -60,11 +60,18 @@ public class PlayerNewMovement : MonoBehaviour
 
 	[Header("Layers & Tags")]
 	[SerializeField] private LayerMask _groundLayer;
+
+	Animator animator;
+
 	#endregion
+
+	
 
 	private void Awake()
 	{
 		RB = GetComponent<Rigidbody2D>();
+
+		animator = GetComponent<Animator>();
 	}
 
 	private void Start()
@@ -90,7 +97,13 @@ public class PlayerNewMovement : MonoBehaviour
 		_moveInput.y = Input.GetAxisRaw("Vertical");
 
 		if (_moveInput.x != 0)
+		{
+			animator.SetBool("moving", true);
 			CheckDirectionToFace(_moveInput.x > 0);
+		} else
+        {
+			animator.SetBool("moving", false);
+        }
 
 		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
 		{
