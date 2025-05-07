@@ -162,7 +162,17 @@ public class PlayerNewMovement : MonoBehaviour
 				_isJumpFalling = false;
 		}
 
-		//Jump
+        //Jump
+
+        if (CanJump())
+        {
+			anim.SetBool("air", false);
+        }
+        else
+        {
+			anim.SetBool("air", true);
+        }
+
 		if (CanJump() && LastPressedJumpTime > 0)
 		{
 			IsJumping = true;
