@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 466d42b34aae9c042bde8f96873e4650, type: 3}
   m_Name: Player Data
   m_EditorClassIdentifier: 
-  gravityStrength: -6
-  gravityScale: 0.6116208
-  fallGravityMult: 1
+  gravityStrength: -17.83591
+  gravityScale: 1.8181356
+  fallGravityMult: 2.66
   maxFallSpeed: 8
   fastFallGravityMult: 3
   maxFastFallSpeed: 9
@@ -27,14 +27,14 @@ MonoBehaviour:
   deccelInAir: 0
   doConserveMomentum: 1
   jumpHeight: 3
-  jumpTimeToApex: 1
-  jumpForce: 6
-  jumpCutGravityMult: 2
-  jumpHangGravityMult: 0.843
-  jumpHangTimeThreshold: 1
-  jumpHangAccelerationMult: 1
-  jumpHangMaxSpeedMult: 2
-  wallJumpForce: {x: -4, y: 5}
+  jumpTimeToApex: 0.58
+  jumpForce: 10.344828
+  jumpCutGravityMult: 3.55
+  jumpHangGravityMult: 0
+  jumpHangTimeThreshold: 0
+  jumpHangAccelerationMult: 0
+  jumpHangMaxSpeedMult: 0
+  wallJumpForce: {x: 0, y: 0}
   wallJumpRunLerp: 0.296
   wallJumpTime: 0.238
   doTurnOnWallJump: 1
