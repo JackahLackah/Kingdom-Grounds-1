@@ -453,4 +453,10 @@ public class PlayerNewMovement : MonoBehaviour
 		Gizmos.DrawWireCube(_backWallCheckPoint.position, _wallCheckSize);
 	}
 	#endregion
+
+	public bool canAttack()
+	{
+		return _moveInput.x == 0 && LastOnGroundTime > 0;
+	}
+
 }

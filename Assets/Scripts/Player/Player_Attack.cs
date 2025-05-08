@@ -4,33 +4,38 @@ public class Player_Attack : MonoBehaviour
 {
 
     [Header("Attacking")]
+    [SerializeField] private float attackCooldown;
+    private float cooldownTimer = Mathf.Infinity;
     bool attack = false;
-    float timeBetweenAttack, timeSinceAttack;
+
+    private Animator anim;
+    private PlayerNewMovement playerNewMovement;
 
     private void Awake()
     {
-       
+        anim = GetComponent<Animator>();
+        playerNewMovement = GetComponent<PlayerNewMovement>();
     }
 
     private void Update()
     {
         GetInstanceID();
-        Attack();
+        if (Input.GetMouseButtonDown(0) && cooldownTimer > attackCooldown)
+        {
+            Attack();
+            print("attack");
+        }
+        cooldownTimer += Time.deltaTime;
     }
 
-    void GetInputs()
-    {
-        attack = Input.GetMouseButtonDown(0);
-    }
     void Attack()
     {
-        timeSinceAttack += Time.deltaTime;
-        if(attack && timeSinceAttack >= timeBetweenAttack)
-        {
-            timeSinceAttack = 0;
-        }
-    }
+        anim.SetTrigger("attack");
+        cooldownTimer = 0;
+        
+        //Uses pooling
 
+    }
 
     
 }

@@ -1,0 +1,50 @@
+using UnityEngine;
+
+public class Projectile : MonoBehaviour
+{
+    [SerializeField] private float speed;
+    private float direction;
+    private bool hit;
+
+    private BoxCollider2D collider2D;
+
+    private void Awake()
+    {
+        collider2D = GetComponent<BoxCollider2D>();
+    }
+
+    private void Update()
+    {
+        if (hit) {
+            float movementSpeed = speed * Time.deltaTime * direction;
+            transform.Translate(movementSpeed, 0, 0);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        hit = true;
+        collider2D.enabled = false;
+    }
+
+    public void SetDirection(float _direction)
+    {
+        direction = _direction;
+        gameObject.SetActive(true);
+        hit = false;
+        collider2D.enabled = true;
+
+        float localeScaleX = transform.localScale.x;
+        if (Mathf.Sign(localeScaleX) != _direction)
+        {
+            localeScaleX = -localeScaleX;
+        }
+
+        transform.localScale = new Vector2(localeScaleX, transform.localScale.y);
+    }
+
+    private void Deactivate()
+    {
+
+    }
+}
