@@ -1,20 +1,31 @@
 using UnityEngine;
 
-public class LizardEnemy : MonoBehaviour
+public class MeleeEnemy : MonoBehaviour
 {
+    [Header ("Attack")]
     [SerializeField] private float attackCooldown;
     [SerializeField] private float range;
-    [SerializeField] private float colliderDistance;
     [SerializeField] private int damage;
+
+    [Header ("Colliders")]
     [SerializeField] private BoxCollider2D boxCollider;
+    [SerializeField] private float colliderDistance;
+
+    [Header ("Player Layer")]
     [SerializeField] private LayerMask playerLayer;
+
     private float cooldownTimer = Mathf.Infinity;
+
+    //References
     private Animator anim;
     private Health playerHealth;
+
+    private EnemyPatrol enemyPatrol;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        enemyPatrol = GetComponentInParent<EnemyPatrol>();
     }
 
     private void Update()
@@ -26,8 +37,13 @@ public class LizardEnemy : MonoBehaviour
             if (cooldownTimer >= attackCooldown)
             {
                 cooldownTimer = 0;
-                anim.SetTrigger("");
+                anim.SetTrigger("attack");
             }
+        }
+
+        if (enemyPatrol != null)
+        {
+            enemyPatrol.enabled = !PlayerInSight();
         }
     }
 
