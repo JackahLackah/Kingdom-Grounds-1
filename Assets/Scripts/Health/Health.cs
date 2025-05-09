@@ -2,15 +2,26 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    [Header ("Health")]
     [SerializeField] private float startingHealth;
     public float currentHealth { get; private set; }
     private Animator anim;
     private bool dead;
 
+    [Header("iFrames")]
+    [SerializeField] private float iFramesDuration;
+    [SerializeField] private int numberOfFlashes;
+    private SpriteRenderer spriteRend;
+
+    [Header("Components")]
+    [SerializeField] private Behaviour[] components;
+
+
     private void Awake()
     {
         currentHealth = startingHealth;
         anim = GetComponent<Animator>();
+        spriteRend = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -38,19 +49,18 @@ public class Health : MonoBehaviour
             {
                 anim.SetTrigger("die");
 
-                if (GetComponent<PlayerNewMovement>() != null)
+                foreach(Behaviour component in components)
                 {
-                    GetComponent<PlayerNewMovement>().enabled = false;
+                    component.enabled = false;
                 }
-
-                if (GetComponent<EnemyPatrol>() != null)
-                GetComponentInParent<EnemyPatrol>().enabled = false;
-
-                if(GetComponent<MeleeEnemy>() != null)
-                GetComponent<MeleeEnemy>().enabled = false;
 
                 dead = true;
             }
         }
+    }
+
+    public void AddHealth(float _value)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth);
     }
 }

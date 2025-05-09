@@ -1,46 +1,60 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Projectile_Enemy
+public class Projectile_Enemy : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private float resetTime;
-    private float lifetime;
-    private BoxCollider2D coll;
-
+    private float direction;
     private bool hit;
+    private float lifetime;
+
+    private BoxCollider2D collider2D;
 
     private void Awake()
     {
-        //coll = GetComponent<BoxCollider2D>();
-    }
-    public void ActiveProjectile()
-    {
-        hit = false;
-        lifetime = 0;
-        //gameObject.SetActive(true);
-        coll.enabled = true;
+        collider2D = GetComponent<BoxCollider2D>();
     }
 
     private void Update()
     {
-        if (hit) return;
-        float movmementSpeed = speed * Time.deltaTime;
-        //transform.Translate(movementSpeed, 0, 0);
+        if (hit)
+        {
+            float movementSpeed = speed * Time.deltaTime * direction;
+            transform.Translate(movementSpeed, 0, 0);
+        }
 
         lifetime += Time.deltaTime;
-        if (lifetime > resetTime)
+        if (lifetime > 5)
         {
-            //GameObject.SetGameObjectsActive(false);
+            gameObject.SetActive(false);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collider2D collision)
     {
         hit = true;
-        //base.OnTriggerEnter2D(collision);
-        coll.enabled = false;
+        collider2D.enabled = false;
+        Destroy(gameObject);
+    }
 
-        //gameObject.SetActive(false);
+    public void SetDirection(float _direction)
+    {
+        lifetime = 0;
+        direction = _direction;
+        gameObject.SetActive(true);
+        hit = false;
+        collider2D.enabled = true;
+
+        float localeScaleX = transform.localScale.x;
+        if (Mathf.Sign(localeScaleX) != _direction)
+        {
+            localeScaleX = -localeScaleX;
+        }
+
+        transform.localScale = new Vector2(localeScaleX, transform.localScale.y);
+    }
+
+    private void Deactivate()
+    {
+        gameObject.SetActive(false);
     }
 }

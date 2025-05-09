@@ -52,7 +52,7 @@ public class RangedEnemy : MonoBehaviour
     {
         cooldownTimer = 0;
         picks[FindPick()].transform.position = firepoint.position;
-        //picks[FindPick()].GetComponent<EnemyProjectile>().ActivateProjectile();
+        picks[FindPick()].GetComponent<Projectile_Enemy>().gameObject.SetActive(true);
     }
 
     private int FindPick()

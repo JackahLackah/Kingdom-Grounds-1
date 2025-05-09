@@ -5,8 +5,9 @@ public class Player_Attack : MonoBehaviour
 
     [Header("Attacking")]
     [SerializeField] private float attackCooldown;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject[] picks;
     private float cooldownTimer = Mathf.Infinity;
-    bool attack = false;
 
     private Animator anim;
     private PlayerNewMovement playerNewMovement;
@@ -34,8 +35,20 @@ public class Player_Attack : MonoBehaviour
         cooldownTimer = 0;
         
         //Uses pooling
+        picks[FindFireball()].transform.position = firePoint.position;
+        picks[FindFireball()].GetComponent<Projectile>().SetDirection(Mathf.Sign(transform.localScale.x));
 
     }
 
-    
+    private int FindFireball()
+    {
+        for (int i = 0; i < picks.Length; i++)
+        {
+            if (picks[i].activeInHierarchy)
+            {
+                return i;
+            }
+        }
+        return 0;
+    }
 }
