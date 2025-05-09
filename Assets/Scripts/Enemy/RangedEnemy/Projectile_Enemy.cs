@@ -29,11 +29,12 @@ public class Projectile_Enemy : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collider2D collision)
+    private void onTriggerEnter2D(Collider2D collision)
     {
         hit = true;
+        print("hit");
         collider2D.enabled = false;
-        Destroy(gameObject);
+        Deactivate();
     }
 
     public void SetDirection(float _direction)
