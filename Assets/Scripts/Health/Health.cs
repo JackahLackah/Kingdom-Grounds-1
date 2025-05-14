@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class Health : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class Health : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Behaviour[] components;
 
+    public TextMeshProUGUI scoreText;
+    public float score;
+
 
     private void Awake()
     {
@@ -31,6 +35,8 @@ public class Health : MonoBehaviour
         {
             TakeDamage(1);
         }
+        scoreText.text = score.ToString();
+        print(score);
     }
 
     public void TakeDamage(float _damage)
@@ -57,6 +63,10 @@ public class Health : MonoBehaviour
                 }
 
                 dead = true;
+                if(this.gameObject.CompareTag("Enemy"))
+                {
+                    score++;
+                }
             }
         }
     }
