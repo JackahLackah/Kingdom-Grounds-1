@@ -289,7 +289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCooldown: 1
   range: 6
-  damage: 1
+  damage: 0.5
   firepoint: {fileID: 8005652467221147115}
   picks:
   - {fileID: 8939504486663628754}
