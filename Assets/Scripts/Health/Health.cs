@@ -18,8 +18,8 @@ public class Health : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Behaviour[] components;
 
-    public TextMeshProUGUI scoreText;
-    public float score;
+    
+    //public float score;
 
 
     private void Awake()
@@ -31,12 +31,7 @@ public class Health : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            TakeDamage(1);
-        }
-        scoreText.text = score.ToString();
-        print(score);
+        
     }
 
     public void TakeDamage(float _damage)
@@ -55,7 +50,7 @@ public class Health : MonoBehaviour
             //dead
             if (!dead)
             {
-                anim.SetTrigger("die");
+                
 
                 foreach(Behaviour component in components)
                 {
@@ -65,10 +60,30 @@ public class Health : MonoBehaviour
                 dead = true;
                 if(this.gameObject.CompareTag("Enemy"))
                 {
-                    score++;
+                    PlayerNewMovement pnm = FindFirstObjectByType<PlayerNewMovement>();
+                    if (pnm != null)
+                        StartCoroutine(DeathR());
+
+                    else
+                    {
+                        Debug.Log("pnm = null");
+                    }
+                    //Destroy(gameObject);
                 }
             }
         }
+    }
+
+    public IEnumerator DeathR()
+    {
+        //Debug.Log("dieR called");
+        anim.SetTrigger("die");
+        Destroy(GetComponent<BoxCollider2D>());
+        FindFirstObjectByType<PlayerNewMovement>().IncreaseScore();
+        yield return new WaitForSeconds(.5f);
+        //Debug.Log("done waiting");
+        Destroy(gameObject);
+
     }
 
     public void AddHealth(float _value)

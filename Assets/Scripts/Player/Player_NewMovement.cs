@@ -8,6 +8,8 @@
 
 using System.Collections;
 using UnityEngine;
+using TMPro;
+
 
 public class PlayerNewMovement : MonoBehaviour
 {
@@ -18,7 +20,8 @@ public class PlayerNewMovement : MonoBehaviour
 	//Next, drag it into the slot in playerMovement on your player
 
 	public PlayerData Data;
-
+	public int score = 0;
+	public TextMeshProUGUI scoreText;
 	#region Variables
 	//Components
 	public Rigidbody2D RB { get; private set; }
@@ -459,4 +462,10 @@ public class PlayerNewMovement : MonoBehaviour
 		return _moveInput.x == 0 && LastOnGroundTime > 0;
 	}
 
+	public int IncreaseScore()
+	{
+		score += 1;
+		scoreText.text = score.ToString();
+		return score;
+	}
 }

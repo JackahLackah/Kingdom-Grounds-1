@@ -6,6 +6,7 @@ public class EnemyPickHolder : MonoBehaviour
 
     private void Update()
     {
+        if(transform!=null)
         transform.localScale = enemy.localScale;
     }
 }

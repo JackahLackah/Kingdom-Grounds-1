@@ -29,11 +29,16 @@ public class Player_Attack : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && cooldownTimer > attackCooldown)
         {
             Attack();
-            print("attack");
+            //print("attack");
             Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(attackOrigin.position, attackRadius, enemyMask);
             foreach (var enemy in enemiesInRange)
             {
+                if(enemy.GetComponent<Health>()!=null)
                 enemy.GetComponent<Health>().TakeDamage(attackDamage);
+                else
+                {
+                    Debug.Log("Health is null");
+                }
             }
         }
         cooldownTimer += Time.deltaTime;
