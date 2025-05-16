@@ -6011,7 +6011,7 @@ MonoBehaviour:
   spawnee: {fileID: 8321500590864883423, guid: e126b53383f9b9148af4ffd8f469ebb5, type: 3}
   sizeX: 0.5
   sizeY: 0.5
-  spawnCooldown: 2
+  spawnCooldown: 1.5
 --- !u!4 &594107887
 Transform:
   m_ObjectHideFlags: 0
@@ -7976,7 +7976,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -371, y: -119}
+  m_AnchoredPosition: {x: -156, y: -96}
   m_SizeDelta: {x: 129.2215, y: 56.7407}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1595837751
@@ -8009,7 +8009,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0.009433985, g: 0.008410486, b: 0.008410486, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
