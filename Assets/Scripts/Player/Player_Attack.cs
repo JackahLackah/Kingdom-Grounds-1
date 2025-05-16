@@ -34,9 +34,7 @@ public class Player_Attack : MonoBehaviour
         anim.SetTrigger("attack");
         cooldownTimer = 0;
         
-        //Uses pooling
-        picks[FindFireball()].transform.position = firePoint.position;
-        picks[FindFireball()].GetComponent<Projectile>().SetDirection(Mathf.Sign(transform.localScale.x));
+         
 
     }
 

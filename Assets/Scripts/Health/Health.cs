@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class Health : MonoBehaviour
 {
@@ -57,10 +59,16 @@ public class Health : MonoBehaviour
                 }
 
                 dead = true;
+                SceneManager.LoadScene("Gameover");
+
+
             }
         }
     }
-
+  
+    
+ 
+    
     public void AddHealth(float _value)
     {
         currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth);
@@ -80,4 +88,12 @@ public class Health : MonoBehaviour
         }
         Physics2D.IgnoreLayerCollision(7, 8, true);
     }
-}
+
+
+
+
+
+     
+
+    }
+
