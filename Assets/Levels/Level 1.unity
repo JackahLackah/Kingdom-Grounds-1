@@ -6011,7 +6011,7 @@ MonoBehaviour:
   spawnee: {fileID: 8321500590864883423, guid: e126b53383f9b9148af4ffd8f469ebb5, type: 3}
   sizeX: 0.5
   sizeY: 0.5
-  spawnCooldown: 1
+  spawnCooldown: 2
 --- !u!4 &594107887
 Transform:
   m_ObjectHideFlags: 0
@@ -8809,7 +8809,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCooldown: 1
   range: 6
-  damage: 1
+  damage: 0.5
   firepoint: {fileID: 1933509991}
   picks:
   - {fileID: 374626024}

@@ -5,7 +5,7 @@ public class RangedEnemy : MonoBehaviour
     [Header("Attack")]
     [SerializeField] private float attackCooldown;
     [SerializeField] private float range;
-    [SerializeField] private int damage;
+    [SerializeField] private float damage;
     [SerializeField] private Transform firepoint;
     [SerializeField] private GameObject[] picks;
 
@@ -74,6 +74,14 @@ public class RangedEnemy : MonoBehaviour
             0, Vector2.left, 0, playerLayer);
 
         return hit.collider != null;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            collision.GetComponent<Health>().TakeDamage(damage);
+        }
     }
 
     private void OnDrawGizmos()
