@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -58,7 +59,10 @@ public class Health : MonoBehaviour
                 }
 
                 dead = true;
-                if(this.gameObject.CompareTag("Enemy"))
+                if (this.gameObject.CompareTag("Player")) {
+                    SceneManager.LoadScene("Gameover");
+                }
+                if (this.gameObject.CompareTag("Enemy"))
                 {
                     PlayerNewMovement pnm = FindFirstObjectByType<PlayerNewMovement>();
                     if (pnm != null)
