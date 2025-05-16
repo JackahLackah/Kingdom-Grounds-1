@@ -9,6 +9,11 @@ public class Player_Attack : MonoBehaviour
     [SerializeField] private GameObject[] picks;
     private float cooldownTimer = Mathf.Infinity;
 
+    public Transform attackOrigin;
+    public float attackRadius = 1f;
+    public LayerMask enemyMask;
+    public int attackDamage;
+
     private Animator anim;
     private PlayerNewMovement playerNewMovement;
 
@@ -24,7 +29,17 @@ public class Player_Attack : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && cooldownTimer > attackCooldown)
         {
             Attack();
-            print("attack");
+            //print("attack");
+            Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(attackOrigin.position, attackRadius, enemyMask);
+            foreach (var enemy in enemiesInRange)
+            {
+                if(enemy.GetComponent<Health>()!=null)
+                enemy.GetComponent<Health>().TakeDamage(attackDamage);
+                else
+                {
+                    Debug.Log("Health is null");
+                }
+            }
         }
         cooldownTimer += Time.deltaTime;
     }
@@ -34,8 +49,17 @@ public class Player_Attack : MonoBehaviour
         anim.SetTrigger("attack");
         cooldownTimer = 0;
         
-         
 
+
+        //Uses pooling
+        //picks[FindFireball()].transform.position = firePoint.position;
+        //picks[FindFireball()].GetComponent<Projectile>().SetDirection(Mathf.Sign(transform.localScale.x));
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(attackOrigin.position, attackRadius);
     }
 
     private int FindFireball()

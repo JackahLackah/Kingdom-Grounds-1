@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class Player_Movement : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Player_Movement : MonoBehaviour
     private float jumpTime;
     private int availableJumps;
     private bool isJumping;
+
+    public TextMeshProUGUI scoreText;
 
     [Header("Horizontal Movement Settings")]
     [SerializeField] private float speed;
@@ -22,6 +25,8 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] private float groundCheckX = 0.5f;
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private LayerMask whatIsWall;
+
+    
 
     Animator animator;
 
@@ -94,6 +99,8 @@ public class Player_Movement : MonoBehaviour
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.1f, whatIsWall);
         return raycastHit.collider != null;
     }
+
+    
 
 
     //OLD TBD CODE
